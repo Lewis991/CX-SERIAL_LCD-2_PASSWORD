@@ -1,0 +1,29 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd (12, 11, 5, 4, 3, 2); //DEFINO MI OBJETO CON LOS PINES
+int cont=0;
+String incomingByte;
+
+void setup() {
+  // put your setup code here, to run once:
+lcd.begin(16,2);
+  Serial.begin(9600);// abre el puerto serie,y le asigna la velocidad de 9600 bps
+  Serial.println("Ingresar La Contraseña");
+  lcd.clear();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+if (Serial.available() > 0) {// lee el byte de entrada:
+      incomingByte = Serial.readString();//lo vuelca a pantalla
+      Serial.print("He recibido: "); Serial.println("*");
+      lcd.setCursor(0,0);  
+      if(incomingByte.equals("Jose") ){//Clave correcta
+        lcd.clear();
+        lcd.print("CLAVE CORRECTA");
+      }
+      else{
+        lcd.clear();//Clave incorrecta
+        lcd.print("CLAVE INCORRECTA");
+      }
+   }
+}
